@@ -10,7 +10,7 @@ TRUNCATE=$(which truncate)
 LOG_FILE="server.log"
 
 #Esempio crontab
-# 00 1 * * $HOME/bin/remove_log.sh $HOME/bin/remove_log_path 30 >> /dev/null
+# 00 1 * * * $HOME/bin/remove_log.sh $HOME/bin/remove_log_path 30 >> /dev/null
 
 if [ $# -eq 1 ] || [ $# -eq 2 ]; then
 if [ ! -f $LSOF ]; then
@@ -23,7 +23,8 @@ DATE=`date +%F"-"%H%M`
 COMPRESS="gzip -9"
 
 REMOVE() {
-echo $FIND $1 -type f -mtime +$RETENTION -exec rm {} \;
+#echo $FIND $1 -type f -mtime +$RETENTION -exec rm {} \;
+$FIND $1 -type f -mtime +$RETENTION -exec rm {} \;
 }
 
 
